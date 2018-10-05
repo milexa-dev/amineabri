@@ -24,14 +24,22 @@ jobs:
         command: |
           php -v
           cd wp-content/themes/amineabri/tests
-          php composer.phar --version
+          mv composer.phar /usr/local/bin/composer;
+          composer --version
     - run:
         name: Install dependencies
         command: |
           cd wp-content/themes/amineabri/tests
           php composer.phar dump-autoload
     - run:
+        name: Install phpunit globaly
+        command: |
+          wget https://phar.phpunit.de/phpunit-6.5.phar
+          chmod +x phpunit-6.5.phar
+          sudo mv phpunit-6.5.phar /usr/local/bin/phpunit
+          phpunit --version
+    - run:
         name: Run Unit tests
         command: |
           cd wp-content/themes/amineabri/tests
-          vendor/bin/phpunit --filter testCreateOrder
+          phpunit --filter testCreateOrder
