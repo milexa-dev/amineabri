@@ -9,4 +9,4 @@ jobs:
     steps:
     - checkout
     # run tests!
-    - run: phpunit --filter testCreateOrder
+    - run: vendor/bin/phpunit --filter testCreateOrder
