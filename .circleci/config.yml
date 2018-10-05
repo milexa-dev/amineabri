@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: /var/www/html
     docker:
-    - image: cwebdevops/php-nginx:7.2
+    - image: webdevops/php-nginx:7.2
       environment:
         APP_ENV: test
     steps:
