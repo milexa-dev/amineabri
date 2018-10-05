@@ -14,8 +14,8 @@ jobs:
         name: Install Java
         command: |
           java -version
-          apt-get install -y software-properties-common
-          add-apt-repository ppa:webupd8team/java
+          sudo apt-get install -y software-properties-common
+          sudo add-apt-repository ppa:webupd8team/java
           apt-get update
           apt-get install oracle-java8-installer
           update-java-alternatives -s java-8-oracle
