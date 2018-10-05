@@ -13,12 +13,12 @@ jobs:
     - run:
         name: Install Java
         command: |
-          java -version
-          sudo apt-get install -y software-properties-common
+          sudo apt-get update && sudo apt-get upgrade
+          sudo apt-get install software-properties-common
           sudo add-apt-repository ppa:webupd8team/java
           sudo apt-get update
-          sudo apt-get -y --allow-unauthenticated install oracle-java8-installer
-          sudo update-java-alternatives -s java-8-oracle
+          sudo apt-get install oracle-java9-installer
+          
           java -version
     #- checkout
     #- run:
