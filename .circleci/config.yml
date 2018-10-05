@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/repo
+    working_directory: ~/wp-content/themes/amineabri/tests
     docker:
     - image: php:7.1-apache
       environment:
