@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: /var/www/html
     docker:
-    - image: php:7.1-apache
+    - image: php:7.2-apache
       environment:
         APP_ENV: test
     steps:
@@ -16,7 +16,7 @@ jobs:
           apt update
           apt -y install default-jdk
           java -version
-          
+
     - checkout
     - run:
         name: Install Composer
