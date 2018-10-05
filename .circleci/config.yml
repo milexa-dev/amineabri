@@ -16,7 +16,8 @@ jobs:
           su -c 'echo "deb http://deb.debian.org/debian jessie-backports main" >> /etc/apt/sources.list'
           rm -rf /var/lib/apt/lists/*
           apt update
-          apt install -t jessie-backports  openjdk-8-jre-headless ca-certificates-java
+          apt install -t jessie-backports ca-certificates-java
+          apt -y install openjdk-8-jdk openjdk-8-jre openjdk-8-jdk-headless openjdk-8-jre-headless
     - checkout
     - run:
         name: Install Composer
