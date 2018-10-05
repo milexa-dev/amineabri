@@ -9,7 +9,9 @@ jobs:
     steps:
     - run:
         name: Install system packages
-        command: sudo apt-get update && sudo apt-get -y install git
+        command: |
+          apt-get install sudo -y
+          sudo apt-get update && sudo apt-get -y install git
     - run:
         name: Permissions
         command: |
