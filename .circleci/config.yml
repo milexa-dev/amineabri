@@ -3,50 +3,46 @@ jobs:
   build:
     working_directory: /var/www/html
     docker:
-    - image: php:7.2-apache
+    - image: circleci/php:7.1-apache-node-browsers-legacy
       environment:
         APP_ENV: test
     steps:
-    - run:
-        name: Install system packages
-        command: apt-get update && apt-get -y install git
+    #- run:
+        #name: Install system packages
+        #command: apt-get update && apt-get -y install git
     - run:
         name: Install Java
         command: |
-          su -c 'echo "deb http://deb.debian.org/debian jessie-backports main" >> /etc/apt/sources.list'
-          rm -rf /var/lib/apt/lists/*
-          apt update
-          apt install -t jessie-backports ca-certificates-java
-          apt -y install openjdk-8-jdk openjdk-8-jre openjdk-8-jdk-headless openjdk-8-jre-headless
-    - checkout
-    - run:
-        name: Install Composer
-        command: |
-          cd wp-content/themes/amineabri/tests
-          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-          php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer invalid'; unlink('composer-setup.php'); } echo PHP_EOL;"
-          php composer-setup.php
-          php -r "unlink('composer-setup.php');"
-    - run:
-        name: Display PHP information
-        command: |
-          php -v
-          cd wp-content/themes/amineabri/tests
-          mv composer.phar /usr/local/bin/composer;
-          composer --version
-    - run:
-        name: Install dependencies
-        command: |
-          cd wp-content/themes/amineabri/tests
-          composer dump-autoload
-    - run:
-        name: Install phpunit
-        command: |
-          apt update && apt install wget
-          wget https://phar.phpunit.de/phpunit-6.5.phar
-          chmod +x phpunit-6.5.phar
-          mv phpunit-6.5.phar /usr/local/bin/phpunit
-          phpunit --version
+          java -version
+    #- checkout
+    #- run:
+        #name: Install Composer
+        #command: |
+          #cd wp-content/themes/amineabri/tests
+          #php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          #php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer invalid'; unlink('composer-setup.php'); } echo PHP_EOL;"
+          #php composer-setup.php
+          #php -r "unlink('composer-setup.php');"
+    #- run:
+        #name: Display PHP information
+        #command: |
+          #php -v
+          #cd wp-content/themes/amineabri/tests
+          #mv composer.phar /usr/local/bin/composer;
+          #composer --version
+    #- run:
+        #name: Install dependencies
+        #command: |
+          #cd wp-content/themes/amineabri/tests
+          #composer dump-autoload
+    #- run:
+        #name: Install phpunit
+        #command: |
+          #apt update && apt install wget
+          #wget https://phar.phpunit.de/phpunit-6.5.phar
+          #chmod +x phpunit-6.5.phar
+          #mv phpunit-6.5.phar /usr/local/bin/phpunit
+          #phpunit --version
     #- run:
         #name: Install Selenium
         #command: |
