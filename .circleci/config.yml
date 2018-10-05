@@ -3,15 +3,13 @@ jobs:
   build:
     working_directory: /var/www/html
     docker:
-    - image: php:7.1-apache
+    - image: cwebdevops/php-nginx:7.2
       environment:
         APP_ENV: test
     steps:
     - run:
         name: Install system packages
-        command: |
-          apt-get install sudo -y
-          sudo apt-get update && sudo apt-get -y install git
+        command: sudo apt-get update && sudo apt-get -y install git
     - run:
         name: Permissions
         command: |
