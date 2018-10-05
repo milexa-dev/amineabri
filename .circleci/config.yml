@@ -43,7 +43,7 @@ jobs:
         name: Install Java
         command: |
           apt update
-          apt -y install openjdk-8-jdk
+          apt -y install default-jdk
           java -version
     #- run:
         #name: Install Selenium
