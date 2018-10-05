@@ -7,11 +7,10 @@ jobs:
       environment:
         APP_ENV: test
     steps:
-    - run: chown -R $USER:$USER /var/www
-    - checkout
     - run:
         name: Install system packages
         command: sudo apt-get update && sudo apt-get -y install git
+    - checkout
     - run:
         name: Install Java
         command: |
