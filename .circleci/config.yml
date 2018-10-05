@@ -30,7 +30,7 @@ jobs:
         name: Install dependencies
         command: |
           cd wp-content/themes/amineabri/tests
-          php composer.phar dump-autoload
+          composer dump-autoload
     - run:
         name: Install phpunit globaly
         command: |
