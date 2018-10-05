@@ -11,67 +11,67 @@ jobs:
         name: Install system packages
         command: apt-get update && apt-get -y install git
     - checkout
+#    - run:
+#        name: Install Java
+#        command: |
+#          apt-get update && apt-get -y upgrade
+#          apt-get -y install software-properties-common
+#          add-apt-repository -y ppa:webupd8team/java
+#          apt-get update
+#          echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
+#          echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
+#          apt-get -y --allow-unauthenticated install oracle-java8-installer
+#          update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-8-oracle/jre/bin/java 1100
+#          java -version
     - run:
-        name: Install Java
+        name: Install Composer
         command: |
-          apt-get update && apt-get -y upgrade
-          apt-get -y install software-properties-common
-          add-apt-repository -y ppa:webupd8team/java
+          cd wp-content/themes/amineabri/tests
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer invalid'; unlink('composer-setup.php'); } echo PHP_EOL;"
+          php composer-setup.php
+          php -r "unlink('composer-setup.php');"
+    - run:
+        name: Display PHP information
+        command: |
+          php -v
+          cd wp-content/themes/amineabri/tests
+          mv composer.phar /usr/local/bin/composer;
+          composer --version
+    - run:
+        name: Install dependencies
+        command: |
+          cd wp-content/themes/amineabri/tests
+          composer dump-autoload
+    - run:
+        name: Install phpunit
+        command: |
+          apt-get update && apt-get install wget
+          wget https://phar.phpunit.de/phpunit-6.5.phar
+          chmod +x phpunit-6.5.phar
+          mv phpunit-6.5.phar /usr/local/bin/phpunit
+          phpunit --version
+    - run:
+        name: Install Selenium
+        command: |
+          wget https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar
+          chmod +x selenium-server-standalone-3.14.0.jar
+          mv selenium-server-standalone-3.14.0.jar /usr/local/bin/selenium
+    - run:
+        name: Install chrome driver
+        command: |
           apt-get update
-          echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
-          echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
-          apt-get -y --allow-unauthenticated install oracle-java8-installer
-#sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-8-oracle/jre/bin/java 1100
-#java -version
-#    - run:
-#        name: Install Composer
-#        command: |
-#          cd wp-content/themes/amineabri/tests
-#          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-#          php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer invalid'; unlink('composer-setup.php'); } echo PHP_EOL;"
-#          php composer-setup.php
-#          php -r "unlink('composer-setup.php');"
-#    - run:
-#        name: Display PHP information
-#        command: |
-#          php -v
-#          cd wp-content/themes/amineabri/tests
-#          mv composer.phar /usr/local/bin/composer;
-#          composer --version
-#    - run:
-#        name: Install dependencies
-#        command: |
-#          cd wp-content/themes/amineabri/tests
-#          composer dump-autoload
-#    - run:
-#        name: Install phpunit
-#        command: |
-#          sudo apt-get update && sudo apt-get install wget
-#          wget https://phar.phpunit.de/phpunit-6.5.phar
-#          chmod +x phpunit-6.5.phar
-#          mv phpunit-6.5.phar /usr/local/bin/phpunit
-#          phpunit --version
-#    - run:
-#        name: Install Selenium
-#        command: |
-#          wget https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar
-#          chmod +x selenium-server-standalone-3.14.0.jar
-#          mv selenium-server-standalone-3.14.0.jar /usr/local/bin/selenium
-#    - run:
-#        name: Install chrome driver
-#        command: |
-#          sudo apt-get update
-#          sudo apt-get -y install unzip xvfb libxi6 libgconf-2-4
-#          curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add
-#          echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
-#          sudo apt-get -y install google-chrome-stable
-#          wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
-#          unzip chromedriver_linux64.zip
-#          mv chromedriver /usr/bin/chromedriver
-#          chown root:root /usr/bin/chromedriver
-#          chmod +x /usr/bin/chromedriver
-#    - run:
-#        name: Run Unit tests
-#        command: |
-#          cd wp-content/themes/amineabri/tests
-#          phpunit --filter testCreateOrder
+          apt-get -y install unzip xvfb libxi6 libgconf-2-4
+          curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add
+          echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
+          apt-get -y install google-chrome-stable
+          wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
+          unzip chromedriver_linux64.zip
+          mv chromedriver /usr/bin/chromedriver
+          chown root:root /usr/bin/chromedriver
+          chmod +x /usr/bin/chromedriver
+    - run:
+        name: Run Unit tests
+        command: |
+          cd wp-content/themes/amineabri/tests
+          phpunit --filter testCreateOrder
