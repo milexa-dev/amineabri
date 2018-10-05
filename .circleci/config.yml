@@ -7,6 +7,7 @@ jobs:
       environment:
         APP_ENV: test
     steps:
+    - run: chown -R $USER:$USER /var/www
     - checkout
     - run:
         name: Install system packages
