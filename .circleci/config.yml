@@ -14,6 +14,10 @@ jobs:
         name: Install Java
         command: |
           java -version
+          add-apt-repository ppa:webupd8team/java
+          apt-get update
+          apt-get install oracle-java8-installer
+          update-java-alternatives -s java-8-oracle
     #- checkout
     #- run:
         #name: Install Composer
