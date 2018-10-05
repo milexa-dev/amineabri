@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: /var/www/html
     docker:
-    - image: webdevops/php-nginx
+    - image: webdevops/php-apache:ubuntu-16.04
       environment:
         APP_ENV: test
     steps:
