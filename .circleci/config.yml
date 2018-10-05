@@ -20,7 +20,7 @@ jobs:
           echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
           echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
           sudo apt-get -y --allow-unauthenticated install oracle-java8-installer
-          sudo update-alternatives --config java | 0
+          sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-8-oracle/jre/bin/java 1100
           java -version
     #- checkout
     #- run:
