@@ -29,7 +29,6 @@ jobs:
         name: Install dependencies
         command: |
           cd wp-content/themes/amineabri/tests
-          php composer.phar install
           php composer.phar dump_autoload
     - run:
         name: Run Unit tests
