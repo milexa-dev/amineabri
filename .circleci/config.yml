@@ -71,7 +71,14 @@ jobs:
 #          chown root:root /usr/bin/chromedriver
 #          chmod +x /usr/bin/chromedriver
     - run:
-        name: Run Unit tests
+        name: Run Backend Tests
         command: |
           cd wp-content/themes/amineabri/tests
-          phpunit
+          phpunit -h
+#phpunit --filter testCreateOrder
+#    - run:
+#        name: Run Frontend Tests
+#        command: |
+#          cd wp-content/themes/amineabri/tests
+#          java -jar /usr/local/bin/selenium
+#          phpunit --filter testHasLoginForm
