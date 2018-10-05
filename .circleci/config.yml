@@ -1,12 +1,7 @@
-version: 2
-jobs:
-  build:
-    docker:
-    # specify the version you desire here
-    - image: circleci/php:7.1-browsers
-    working_directory: ~/wp-content/themes/amineabri/tests
+machine:
+    php:
+      version: 7.1
 
-    steps:
-    - checkout
-    # run tests!
-    - run: vendor/bin/phpunit --filter testCreateOrder
+test:
+  override:
+    - phpunit --filter testCreateOrder
