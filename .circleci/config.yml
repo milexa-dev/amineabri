@@ -23,6 +23,7 @@ jobs:
         name: Display PHP information
         command: |
           php -v
+          cd wp-content/themes/amineabri/tests
           php composer.phar --version
     - run:
         name: Run Unit tests
