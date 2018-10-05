@@ -3,19 +3,19 @@ jobs:
   build:
     working_directory: /var/www/html
     docker:
-    - image: webdevops/php-nginx:7.2
+    - image: webdevops/php-nginx
       environment:
         APP_ENV: test
     steps:
     - run:
         name: Install system packages
         command: sudo apt-get update && sudo apt-get -y install git
-    - run:
-        name: Permissions
-        command: |
-          sudo chown -R www-data:www-data /var/www/html
-          sudo chmod -R 775 /var/www/html
-          sudo usermod -a -G www-data root
+#    - run:
+#        name: Permissions
+#        command: |
+#          sudo chown -R www-data:www-data /var/www/html
+#          sudo chmod -R 775 /var/www/html
+#          sudo usermod -a -G www-data root
     - checkout
     - run:
         name: Install Java
