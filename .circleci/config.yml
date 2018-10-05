@@ -10,6 +10,13 @@ jobs:
     - run:
         name: Install system packages
         command: apt-get update && apt-get -y install git
+    - run:
+        name: Install Java
+        command: |
+          apt update
+          apt -y install default-jdk
+          java -version
+          
     - checkout
     - run:
         name: Install Composer
@@ -39,12 +46,6 @@ jobs:
           chmod +x phpunit-6.5.phar
           mv phpunit-6.5.phar /usr/local/bin/phpunit
           phpunit --version
-    - run:
-        name: Install Java
-        command: |
-          apt update
-          apt -y install default-jdk
-          java -version
     #- run:
         #name: Install Selenium
         #command: |
