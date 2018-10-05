@@ -15,7 +15,7 @@ jobs:
         command: |
           su -c 'echo "deb http://deb.debian.org/debian jessie-backports main" >> /etc/apt/sources.list'
           rm -rf /var/lib/apt/lists/*
-          apt apt update
+          apt update
           apt install -t jessie-backports  openjdk-8-jre-headless ca-certificates-java
     - checkout
     - run:
