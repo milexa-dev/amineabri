@@ -74,8 +74,7 @@ jobs:
         name: Run Backend Tests
         command: |
           cd wp-content/themes/amineabri/tests
-          phpunit --list-tests 
-#phpunit --filter testCreateOrder
+          phpunit --filter testCreateOrder
 #    - run:
 #        name: Run Frontend Tests
 #        command: |
