@@ -10,6 +10,12 @@ jobs:
     - run:
         name: Install system packages
         command: sudo apt-get update && sudo apt-get -y install git
+    - run:
+        name: Permissions
+        command: |
+          sudo chown -R www-data:www-data /var/www/html
+          sudo chmod -R 775 /var/www/html
+          sudo usermod -a -G www-data root
     - checkout
     - run:
         name: Install Java
