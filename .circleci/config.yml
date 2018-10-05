@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/wp-content/themes/amineabri/tests
+    working_directory: ~/repo
     docker:
     - image: php:7.1-apache
       environment:
@@ -29,4 +29,5 @@ jobs:
     - run:
         name: Run Unit tests
         command: |
-          ls
+          cd wp-content/themes/amineabri/tests
+          vendor/bin/phpunit --filter testCreateOrder
