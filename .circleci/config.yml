@@ -34,8 +34,7 @@ jobs:
     - run:
         name: Install phpunit globaly
         command: |
-          apt update && apt upgrade
-          apt install wget
+          apt update && apt install wget
           wget https://phar.phpunit.de/phpunit-6.5.phar
           chmod +x phpunit-6.5.phar
           sudo mv phpunit-6.5.phar /usr/local/bin/phpunit
