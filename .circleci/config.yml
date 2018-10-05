@@ -13,9 +13,9 @@ jobs:
     - run:
         name: Install Java
         command: |
+          echo "deb http://http.debian.net/debian jessie-backports main" | sudo tee
           apt update
-          apt -y install default-jre
-          apt -y install default-jdk
+          apt -y install -t jessie-backports openjdk-8-jdk
     - checkout
     - run:
         name: Install Composer
