@@ -141,6 +141,9 @@ jobs:
         command: |
           cd wp-content/themes/amineabri/tests
           phpunit --filter --debug testCreateOrder
+    - store_test_results:
+        path: /var/www/html/wp-content/themes/amineabri/tests
+
 #        - run:
 #            name: Run Frontend Tests
 #            command: |
