@@ -3,43 +3,30 @@ jobs:
   build:
     working_directory: /var/www/html
     docker:
-#    - image: notnoopci/php:7.1-apache-node
-#      environment:
-#        MYSQL_HOST: 127.0.0.1
-#        MYSQL_DB: wordpress-test
-#        MYSQL_USER: homestead
-#        MYSQL_ALLOW_EMPTY_PASSWORD: true
-#        MYSQL_PASSWORD: secret
-#    - image: mysql:5.7
-#        command: |
-#          mysqld --character-set-server='utf8mb4' --collation-server='utf8mb4_bin' --innodb-large-prefix='true' --innodb-file-format='Barracuda'
-#        environment:
-#          MYSQL_USER: homestead
-#          MYSQL_ALLOW_EMPTY_PASSWORD: true
-     - image: php:7.1-apache
-     - image: circleci/mysql:5.7
-       environment:
-         - MYSQL_USER=homestead
-         - MYSQL_PASSWORD=secret
-         - MYSQL_ALLOW_EMPTY_PASSWORD=true
-         - MYSQL_DATABASE=wordpress-test
+    - image: circleci/php:7.2-apache-stretch-node-browsers
+      environment:
+        MYSQL_ROOT_PASSWORD: secret
+        MYSQL_HOST: 127.0.0.1
     steps:
     - run:
         name: Install system packages
         command: apt-get update && apt-get -y install git
     - checkout
-    #    - run:
-    #        name: Install Java
-    #        command: |
-    #          apt-get update && apt-get -y upgrade
-    #          apt-get -y install software-properties-common
-    #          add-apt-repository -y ppa:webupd8team/java
-    #          apt-get update
-    #          echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
-    #          echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
-    #          apt-get -y --allow-unauthenticated install oracle-java8-installer
-    #          update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-8-oracle/jre/bin/java 1100
-    #          java -version
+    - run:
+        name: Install things we need
+        command: |
+          sudo apt-get update
+          sudo apt-get install -y libzip-dev
+          sudo apt-get install -y zlib1g-dev libicu-dev g++
+          sudo apt-get install mysql-client
+          sudo apt-get -y install mysql-server
+    - run:
+        name: Install PHP exts
+        command: |
+          sudo docker-php-ext-install zip
+          sudo docker-php-ext-configure intl
+          sudo docker-php-ext-install intl
+          sudo docker-php-ext-install pdo_mysql
     - run:
         name: Install Composer
         command: |
@@ -74,31 +61,20 @@ jobs:
           wget https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar
           chmod +x selenium-server-standalone-3.14.0.jar
           mv selenium-server-standalone-3.14.0.jar /usr/local/bin/selenium
-        #    - run:
-    #        name: Install chrome driver
-    #        command: |
-    #          apt-get update
-    #          apt-get -y install unzip xvfb libxi6 libgconf-2-4
-    #          curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add
-    #          echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
-    #          apt-get -y install google-chrome-stable
-    #          wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
-    #          unzip chromedriver_linux64.zip
-    #          mv chromedriver /usr/bin/chromedriver
-    #          chown root:root /usr/bin/chromedriver
-    #          chmod +x /usr/bin/chromedriver
     - run:
-        name: Test mysql
+        name: Fix MySQL socket config
         command: |
-          mysql -h
+          sudo sh -c "echo 'pdo_mysql.default_socket=/var/run/mysqld/mysqld.sock' > /usr/local/etc/php/conf.d/pdo.ini"
+
     - run:
-        name: Run Backend Tests
+        name: Start database server
         command: |
-          cd wp-content/themes/amineabri/tests
-          phpunit --filter testCreateOrder
-        #    - run:
-#        name: Run Frontend Tests
-#        command: |
-#          cd wp-content/themes/amineabri/tests
-#          java -jar /usr/local/bin/selenium
-#          phpunit --filter testHasLoginForm
+          sudo service mysql start
+          sleep 2
+          ps aux | grep mysql
+    - run:
+        name: Create non-admin user and  database
+        command: |
+          sudo mysql -e "CREATE DATABASE wordpresstest; SHOW DATABASES;"
+          sudo mysql -e "CREATE USER 'homestead'@'127.0.0.1' IDENTIFIED BY 'secret';"
+          sudo mysql -e "GRANT ALL ON *.* TO 'homestead'@'127.0.0.1';"

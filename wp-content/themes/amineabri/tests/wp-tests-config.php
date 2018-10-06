@@ -39,7 +39,7 @@ define( 'WP_DEBUG', true );
 // These tests will DROP ALL TABLES in the database with the prefix named below.
 // DO NOT use a production database or one that is shared with something else.
 
-define('DB_NAME', 'wordpress-test');
+define('DB_NAME', 'wordpresstest');
 /** MySQL database username */
 define('DB_USER', 'homestead');
 /** MySQL database password */
