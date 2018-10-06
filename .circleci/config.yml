@@ -29,7 +29,7 @@ jobs:
 #          sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-8-oracle/jre/bin/java 1100
 #          java -version
     - run:
-        name: Install things we need
+        name: Install linux packages
         command: |
           sudo apt-get update
           sudo apt-get install -y libzip-dev
@@ -43,11 +43,6 @@ jobs:
           sudo docker-php-ext-configure intl
           sudo docker-php-ext-install intl
           sudo docker-php-ext-install pdo_mysql
-#    - restore_cache:
-#        keys:
-#        - composer-cache-{{ .Branch }}-{{ .Revision }}
-#        - composer-cache-{{ .Branch }}-
-#        - composer-cache-
     - run:
         name: Install Composer
         command: |
@@ -62,23 +57,9 @@ jobs:
           php -v
           cd wp-content/themes/amineabri/tests
           sudo mv composer.phar /usr/local/bin/composer;
-          composer --version
-#    - save_cache:
-#        key: composer-cache-{{ .Branch }}-{{ .Revision }}
-#        paths:
-#           - /usr/local/bin
-    - run:
-        name: Install dependencies
-        command: |
-          cd wp-content/themes/amineabri/tests
           composer dump-autoload
-#    - restore_cache:
-#        keys:
-#        - phpunit-cache-{{ .Branch }}-{{ .Revision }}
-#        - phpunit-cache-{{ .Branch }}-
-#        - phpunit-cache-
     - run:
-        name: Install phpunit
+        name: Install PHPUnit
         command: |
           sudo apt-get update && sudo apt-get install wget
           wget https://phar.phpunit.de/phpunit-6.5.6.phar
@@ -92,27 +73,12 @@ jobs:
           sudo chmod +x wp-cli.phar
           sudo mv wp-cli.phar /usr/local/bin/wp
           wp --info
-
-#    - save_cache:
-#        key: phpunit-cache-{{ .Branch }}-{{ .Revision }}
-#        paths:
-#        - /usr/local/bin
-
-#    - restore_cache:
-#        keys:
-#        - selenium-cache-{{ .Branch }}-{{ .Revision }}
-#        - selenium-cache-{{ .Branch }}-
-#        - selenium-cache-
     - run:
         name: Install Selenium
         command: |
           wget https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar
           sudo chmod +x selenium-server-standalone-3.14.0.jar
           sudo mv selenium-server-standalone-3.14.0.jar /usr/local/bin/selenium
-#    - save_cache:
-#        key: selenium-cache-{{ .Branch }}-{{ .Revision }}
-#        paths:
-#        - /usr/local/bin
     - run:
         name: Fix MySQL socket config
         command: |
