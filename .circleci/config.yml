@@ -107,11 +107,11 @@ jobs:
 #          mv chromedriver /usr/bin/chromedriver
 #          chown root:root /usr/bin/chromedriver
 #          chmod +x /usr/bin/chromedriver
-        - run:
-            name: Run Backend Tests
-            command: |
-              cd wp-content/themes/amineabri/tests
-              phpunit --filter testCreateOrder
+    - run:
+        name: Run Backend Tests
+        command: |
+          cd wp-content/themes/amineabri/tests
+          phpunit --filter testCreateOrder
 #        - run:
 #            name: Run Frontend Tests
 #            command: |
