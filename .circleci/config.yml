@@ -12,8 +12,7 @@ jobs:
         name: Install system packages
         command: |
           sudo apt-get update && sudo apt-get -y install git
-          cd /var/www/html
-          ls
+          chown -R $USER:$USER /var/www/html
     - checkout
     - run:
         name: Install things we need
