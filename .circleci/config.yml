@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: /var/www/html
     docker:
-    - image: php:7.1-apache
+    - image: circleci/php:7.1-node-browsers
       environment:
         APP_ENV: test
     steps:
@@ -11,18 +11,18 @@ jobs:
         name: Install system packages
         command: apt-get update && apt-get -y install git
     - checkout
-#    - run:
-#        name: Install Java
-#        command: |
-#          apt-get update && apt-get -y upgrade
-#          apt-get -y install software-properties-common
-#          add-apt-repository -y ppa:webupd8team/java
-#          apt-get update
-#          echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
-#          echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
-#          apt-get -y --allow-unauthenticated install oracle-java8-installer
-#          update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-8-oracle/jre/bin/java 1100
-#          java -version
+    #    - run:
+    #        name: Install Java
+    #        command: |
+    #          apt-get update && apt-get -y upgrade
+    #          apt-get -y install software-properties-common
+    #          add-apt-repository -y ppa:webupd8team/java
+    #          apt-get update
+    #          echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
+    #          echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
+    #          apt-get -y --allow-unauthenticated install oracle-java8-installer
+    #          update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-8-oracle/jre/bin/java 1100
+    #          java -version
     - run:
         name: Install Composer
         command: |
@@ -57,25 +57,25 @@ jobs:
           wget https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar
           chmod +x selenium-server-standalone-3.14.0.jar
           mv selenium-server-standalone-3.14.0.jar /usr/local/bin/selenium
-#    - run:
-#        name: Install chrome driver
-#        command: |
-#          apt-get update
-#          apt-get -y install unzip xvfb libxi6 libgconf-2-4
-#          curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add
-#          echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
-#          apt-get -y install google-chrome-stable
-#          wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
-#          unzip chromedriver_linux64.zip
-#          mv chromedriver /usr/bin/chromedriver
-#          chown root:root /usr/bin/chromedriver
-#          chmod +x /usr/bin/chromedriver
+        #    - run:
+    #        name: Install chrome driver
+    #        command: |
+    #          apt-get update
+    #          apt-get -y install unzip xvfb libxi6 libgconf-2-4
+    #          curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add
+    #          echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
+    #          apt-get -y install google-chrome-stable
+    #          wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
+    #          unzip chromedriver_linux64.zip
+    #          mv chromedriver /usr/bin/chromedriver
+    #          chown root:root /usr/bin/chromedriver
+    #          chmod +x /usr/bin/chromedriver
     - run:
         name: Run Backend Tests
         command: |
           cd wp-content/themes/amineabri/tests
           phpunit --filter testCreateOrder
-#    - run:
+        #    - run:
 #        name: Run Frontend Tests
 #        command: |
 #          cd wp-content/themes/amineabri/tests

@@ -81,11 +81,12 @@ $wp_theme_directories = array();
 if ( file_exists( DIR_TESTDATA . '/themedir1' ) ) {
 	$wp_theme_directories[] = DIR_TESTDATA . '/themedir1';
 }
-
-system( WP_PHP_BINARY . ' ' . escapeshellarg( dirname( __FILE__ ) . '/install.php' ) . ' ' . escapeshellarg( $config_file_path ) . ' ' . $multisite, $retval );
-if ( 0 !== $retval ) {
-	exit( $retval );
-}
+if(defined( 'DB' ) && DB):
+	system( WP_PHP_BINARY . ' ' . escapeshellarg( dirname( __FILE__ ) . '/install.php' ) . ' ' . escapeshellarg( $config_file_path ) . ' ' . $multisite, $retval );
+	if ( 0 !== $retval ) {
+		exit( $retval );
+	}
+endif;
 
 if ( $multisite ) {
 	//echo 'Running as multisite...' . PHP_EOL;

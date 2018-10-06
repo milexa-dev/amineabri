@@ -8,6 +8,6 @@ class BuyingJourneyTest extends WP_UnitTestCase {
 
 	public function testCreateOrder() {
 		$test = get_browser_language();
-		$this->assertEquals("en", $test);
+		$this->assertEquals("de", $test);
 	}
 }
