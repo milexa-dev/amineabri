@@ -111,7 +111,7 @@ jobs:
         name: Run Backend Tests
         command: |
           cd wp-content/themes/amineabri/tests
-          phpunit --filter testCreateOrder
+          phpunit mw/backend/BuyingJourneyTest.php
 #        - run:
 #            name: Run Frontend Tests
 #            command: |
