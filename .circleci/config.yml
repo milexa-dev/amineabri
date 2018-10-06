@@ -16,7 +16,7 @@ jobs:
 #        environment:
 #          MYSQL_USER: homestead
 #          MYSQL_ALLOW_EMPTY_PASSWORD: true
-     - image: notnoopci/php:7.1-apache-node
+     - image: php:7.1-apache
      - image: circleci/mysql:5.7
        environment:
          - MYSQL_USER=root
