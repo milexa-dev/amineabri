@@ -44,7 +44,7 @@ jobs:
         command: |
           php -v
           cd wp-content/themes/amineabri/tests
-          mv composer.phar /usr/local/bin/composer;
+          sudo mv composer.phar /usr/local/bin/composer;
           composer --version
     - run:
         name: Install dependencies
@@ -56,15 +56,15 @@ jobs:
         command: |
           sudo apt-get update && sudo apt-get install wget
           wget https://phar.phpunit.de/phpunit-6.5.phar
-          chmod +x phpunit-6.5.phar
-          mv phpunit-6.5.phar /usr/local/bin/phpunit
+          sudo chmod +x phpunit-6.5.phar
+          sudo mv phpunit-6.5.phar /usr/local/bin/phpunit
           phpunit --version
     - run:
         name: Install Selenium
         command: |
           wget https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar
-          chmod +x selenium-server-standalone-3.14.0.jar
-          mv selenium-server-standalone-3.14.0.jar /usr/local/bin/selenium
+          sudo chmod +x selenium-server-standalone-3.14.0.jar
+          sudo mv selenium-server-standalone-3.14.0.jar /usr/local/bin/selenium
     - run:
         name: Fix MySQL socket config
         command: |
