@@ -67,7 +67,7 @@ jobs:
         name: Install phpunit
         command: |
           sudo apt-get update && sudo apt-get install wget
-          wget https://phar.phpunit.de/phpunit-6.5.phar
+          wget https://phar.phpunit.de/phpunit-6.5.6.phar
           sudo chmod +x phpunit-6.5.phar
           sudo mv phpunit-6.5.phar /usr/local/bin/phpunit
           phpunit --version
@@ -111,7 +111,7 @@ jobs:
         name: Run Backend Tests
         command: |
           cd wp-content/themes/amineabri/tests
-          phpunit -v
+          phpunit --version
 #        - run:
 #            name: Run Frontend Tests
 #            command: |
