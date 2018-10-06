@@ -8,106 +8,106 @@ jobs:
         MYSQL_ROOT_PASSWORD: secret
         MYSQL_HOST: 127.0.0.1
     steps:
-    - run:
-        name: Install system packages
-        command: |
-          sudo apt-get update && sudo apt-get -y install git
-          sudo chown -R $USER:$USER /var/www/html
-          sudo chmod -R 777 /var/www/html
+      - run:
+          name: Install system packages
+          command: |
+            sudo apt-get update && sudo apt-get -y install git
+            sudo chown -R $USER:$USER /var/www/html
+            sudo chmod -R 777 /var/www/html
 
-    - checkout
-#    - run:
-#        name: Install Java
-#        command: |
-#          sudo apt-get update && sudo apt-get -y upgrade
-#          sudo apt-get -y install software-properties-common
-#          sudo add-apt-repository -y ppa:webupd8team/java
-#          sudo apt-get update
-#          echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
-#          echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
-#          sudo apt-get -y --allow-unauthenticated install oracle-java8-installer
-#          sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-8-oracle/jre/bin/java 1100
-#          java -version
-    - run:
-        name: Install linux packages
-        command: |
-          sudo apt-get update
-          sudo apt-get install -y libzip-dev
-          sudo apt-get install -y zlib1g-dev libicu-dev g++
-          sudo apt-get install mysql-client
-          sudo apt-get -y install mysql-server
-    - run:
-        name: Install PHP exts
-        command: |
-          sudo docker-php-ext-install zip
-          sudo docker-php-ext-configure intl
-          sudo docker-php-ext-install intl
-          sudo docker-php-ext-install pdo_mysql
-    - run:
-        name: Install Composer
-        command: |
-          cd wp-content/themes/amineabri/tests
-          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-          php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer invalid'; unlink('composer-setup.php'); } echo PHP_EOL;"
-          php composer-setup.php
-          php -r "unlink('composer-setup.php');"
-    - run:
-        name: Display PHP information
-        command: |
-          php -v
-          cd wp-content/themes/amineabri/tests
-          sudo mv composer.phar /usr/local/bin/composer;
-          composer dump-autoload
-    - run:
-        name: Install PHPUnit
-        command: |
-          sudo apt-get update && sudo apt-get install wget
-          wget https://phar.phpunit.de/phpunit-6.5.6.phar
-          sudo chmod +x phpunit-6.5.6.phar
-          sudo mv phpunit-6.5.6.phar /usr/local/bin/phpunit
-          phpunit --version
-    - run:
-        name: Install WP-CLI
-        command: |
-          wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-          sudo chmod +x wp-cli.phar
-          sudo mv wp-cli.phar /usr/local/bin/wp
-          wp --info
-    - run:
-        name: Install Selenium
-        command: |
-          wget https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar
-          sudo chmod +x selenium-server-standalone-3.14.0.jar
-          sudo mv selenium-server-standalone-3.14.0.jar /usr/local/bin/selenium
-    - run:
-        name: Fix MySQL socket config
-        command: |
-          sudo sh -c "echo 'pdo_mysql.default_socket=/var/run/mysqld/mysqld.sock' > /usr/local/etc/php/conf.d/pdo.ini"
-    - run:
-        name: Start database server
-        command: |
-          sudo service mysql start
-          sleep 2
-          ps aux | grep mysql
-    - run:
-        name: Create non-admin user and  database
-        command: |
-          sudo mysql -e "CREATE DATABASE wordpresstest; SHOW DATABASES;"
-          sudo mysql -e "CREATE USER 'homestead'@'127.0.0.1' IDENTIFIED BY 'secret';"
-          sudo mysql -e "GRANT ALL ON *.* TO 'homestead'@'127.0.0.1';"
-#    - run:
-#        name: Install chrome driver
-#        command: |
-#          apt-get update
-#          apt-get -y install unzip xvfb libxi6 libgconf-2-4
-#          curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add
-#          echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
-#          apt-get -y install google-chrome-stable
-#          wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
-#          unzip chromedriver_linux64.zip
-#          mv chromedriver /usr/bin/chromedriver
-#          chown root:root /usr/bin/chromedriver
-#          chmod +x /usr/bin/chromedriver
+      - checkout
+      - run:
+          name: Install linux packages
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y libzip-dev
+            sudo apt-get install -y zlib1g-dev libicu-dev g++
+            sudo apt-get install mysql-client
+            sudo apt-get -y install mysql-server
+      - run:
+          name: Install PHP exts
+          command: |
+            sudo docker-php-ext-install zip
+            sudo docker-php-ext-configure intl
+            sudo docker-php-ext-install intl
+            sudo docker-php-ext-install pdo_mysql
+      - run:
+          name: Install Composer
+          command: |
+            cd wp-content/themes/amineabri/tests
+            php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+            php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer invalid'; unlink('composer-setup.php'); } echo PHP_EOL;"
+            php composer-setup.php
+            php -r "unlink('composer-setup.php');"
+      - run:
+          name: Display PHP information
+          command: |
+            php -v
+            cd wp-content/themes/amineabri/tests
+            sudo mv composer.phar /usr/local/bin/composer;
+            composer dump-autoload
+      - run:
+          name: Install PHPUnit
+          command: |
+            sudo apt-get update && sudo apt-get install wget
+            wget https://phar.phpunit.de/phpunit-6.5.6.phar
+            sudo chmod +x phpunit-6.5.6.phar
+            sudo mv phpunit-6.5.6.phar /usr/local/bin/phpunit
+            phpunit --version
+      - run:
+          name: Install WP-CLI
+          command: |
+            wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+            sudo chmod +x wp-cli.phar
+            sudo mv wp-cli.phar /usr/local/bin/wp
+            wp --info
+      - run:
+          name: Install Selenium
+          command: |
+            wget https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar
+            sudo chmod +x selenium-server-standalone-3.14.0.jar
+            sudo mv selenium-server-standalone-3.14.0.jar /usr/local/bin/selenium
+      - run:
+          name: Fix MySQL socket config
+          command: |
+            sudo sh -c "echo 'pdo_mysql.default_socket=/var/run/mysqld/mysqld.sock' > /usr/local/etc/php/conf.d/pdo.ini"
+      - run:
+          name: Start database server
+          command: |
+            sudo service mysql start
+            sleep 2
+            ps aux | grep mysql
+      - run:
+          name: Create non-admin user and  database
+          command: |
+            sudo mysql -e "CREATE DATABASE wordpresstest; SHOW DATABASES;"
+            sudo mysql -e "CREATE USER 'homestead'@'127.0.0.1' IDENTIFIED BY 'secret';"
+            sudo mysql -e "GRANT ALL ON *.* TO 'homestead'@'127.0.0.1';"
+#      - run:
+#          name: Install Java
+#          command: |
+#            sudo apt-get update && sudo apt-get -y upgrade
+#            sudo apt-get -y install software-properties-common
+#            sudo add-apt-repository -y ppa:webupd8team/java
+#            sudo apt-get update
+#            echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
+#            echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
+#            sudo apt-get -y --allow-unauthenticated install oracle-java8-installer
+#            sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-8-oracle/jre/bin/java 1100
+#            java -version
+#      - run:
+#          name: Install chrome driver
+#          command: |
+#            apt-get update
+#            apt-get -y install unzip xvfb libxi6 libgconf-2-4
+#            curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add
+#            echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
+#            apt-get -y install google-chrome-stable
+#            wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
+#            unzip chromedriver_linux64.zip
+#            mv chromedriver /usr/bin/chromedriver
+#            chown root:root /usr/bin/chromedriver
+#            chmod +x /usr/bin/chromedriver
   test:
     working_directory: /var/www/html
     docker:
@@ -116,21 +116,21 @@ jobs:
           MYSQL_ROOT_PASSWORD: secret
           MYSQL_HOST: 127.0.0.1
       steps:
-      - checkout
-      - run:
-          name: Run Backend Tests
-          command: |
-            cd wp-content/themes/amineabri/tests
-            phpunit --filter --debug testCreateOrder
+        - checkout
+        - run:
+            name: Run Backend Tests
+            command: |
+              cd wp-content/themes/amineabri/tests
+              phpunit --filter --debug testCreateOrder
     #        - run:
     #            name: Run Frontend Tests
     #            command: |
     #              cd wp-content/themes/amineabri/tests
     #              java -jar /usr/local/bin/selenium
     #              phpunit --filter testHasLoginForm
-      - store_artifacts:
-          path: test-results.xml
-          prefix: tests
+        - store_artifacts:
+            path: test-results.xml
+            prefix: tests
 #  deploy:
   workflows:
     version: 2
