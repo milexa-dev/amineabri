@@ -10,7 +10,10 @@ jobs:
     steps:
     - run:
         name: Install system packages
-        command: sudo apt-get update && sudo apt-get -y install git
+        command: |
+          sudo apt-get update && sudo apt-get -y install git
+          cd /var/www/html
+          ls
     - checkout
     - run:
         name: Install things we need
