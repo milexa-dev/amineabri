@@ -45,7 +45,7 @@ define('DB_USER', 'homestead');
 /** MySQL database password */
 define('DB_PASSWORD', 'secret');
 /** MySQL hostname */
-define('DB_HOST', '192.168.10.10');
+define('DB_HOST', '127.0.0.1');
 define('DB_COLLATE', '');
 
 /**#@+
