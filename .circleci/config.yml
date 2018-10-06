@@ -3,19 +3,26 @@ jobs:
   build:
     working_directory: /var/www/html
     docker:
-    - image: php:7.1-apache
-      environment:
-          MYSQL_HOST: 127.0.0.1
-          MYSQL_DB: wordpress-test
-          MYSQL_USER: homestead
-          MYSQL_ALLOW_EMPTY_PASSWORD: true
-          MYSQL_PASSWORD: secret
-    - image: mysql:5.7
-        command: |
-          mysqld --character-set-server='utf8mb4' --collation-server='utf8mb4_bin' --innodb-large-prefix='true' --innodb-file-format='Barracuda'
-        environment:
-          MYSQL_USER: root
-          MYSQL_ALLOW_EMPTY_PASSWORD: true
+#    - image: notnoopci/php:7.1-apache-node
+#      environment:
+#        MYSQL_HOST: 127.0.0.1
+#        MYSQL_DB: wordpress-test
+#        MYSQL_USER: homestead
+#        MYSQL_ALLOW_EMPTY_PASSWORD: true
+#        MYSQL_PASSWORD: secret
+#    - image: mysql:5.7
+#        command: |
+#          mysqld --character-set-server='utf8mb4' --collation-server='utf8mb4_bin' --innodb-large-prefix='true' --innodb-file-format='Barracuda'
+#        environment:
+#          MYSQL_USER: homestead
+#          MYSQL_ALLOW_EMPTY_PASSWORD: true
+     - image: notnoopci/php:7.1-apache-node
+     - image: circleci/mysql:5.7
+       environment:
+         - MYSQL_USER=root
+         - MYSQL_PASSWORD=
+         - MYSQL_ALLOW_EMPTY_PASSWORD=true
+         - MYSQL_DATABASE=circle_test
     steps:
     - run:
         name: Install system packages
