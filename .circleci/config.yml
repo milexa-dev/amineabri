@@ -43,6 +43,8 @@ jobs:
           sudo docker-php-ext-configure intl
           sudo docker-php-ext-install intl
           sudo docker-php-ext-install pdo_mysql
+          sudo pecl channel-update pecl.php.net
+          sudo pecl install xdebug && sudo docker-php-ext-enable xdebug
 #    - restore_cache:
 #        keys:
 #        - composer-cache-{{ .Branch }}-{{ .Revision }}
