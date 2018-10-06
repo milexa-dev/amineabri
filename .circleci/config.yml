@@ -14,7 +14,6 @@ jobs:
             sudo apt-get update && sudo apt-get -y install git
             sudo chown -R $USER:$USER /var/www/html
             sudo chmod -R 777 /var/www/html
-
       - checkout
       - run:
           name: Install linux packages
@@ -39,11 +38,6 @@ jobs:
             php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer invalid'; unlink('composer-setup.php'); } echo PHP_EOL;"
             php composer-setup.php
             php -r "unlink('composer-setup.php');"
-      - run:
-          name: Display PHP information
-          command: |
-            php -v
-            cd wp-content/themes/amineabri/tests
             sudo mv composer.phar /usr/local/bin/composer;
             composer dump-autoload
       - run:
@@ -113,6 +107,12 @@ jobs:
     docker:
       - image: circleci/php:7.2-apache-stretch-node-browsers
     steps:
+      - run:
+          name: Install system packages
+          command: |
+            sudo apt-get update && sudo apt-get -y install git
+            sudo chown -R $USER:$USER /var/www/html
+            sudo chmod -R 777 /var/www/html
       - checkout
       - run:
           name: Run Backend Tests
