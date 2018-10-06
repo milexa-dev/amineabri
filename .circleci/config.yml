@@ -112,25 +112,22 @@ jobs:
     working_directory: /var/www/html
     docker:
       - image: circleci/php:7.2-apache-stretch-node-browsers
-        environment:
-          MYSQL_ROOT_PASSWORD: secret
-          MYSQL_HOST: 127.0.0.1
-      steps:
-        - checkout
-        - run:
-            name: Run Backend Tests
-            command: |
-              cd wp-content/themes/amineabri/tests
-              phpunit --filter --debug testCreateOrder
+    steps:
+      - checkout
+      - run:
+          name: Run Backend Tests
+          command: |
+            cd wp-content/themes/amineabri/tests
+            phpunit --filter --debug testCreateOrder
     #        - run:
     #            name: Run Frontend Tests
     #            command: |
     #              cd wp-content/themes/amineabri/tests
     #              java -jar /usr/local/bin/selenium
     #              phpunit --filter testHasLoginForm
-        - store_artifacts:
-            path: test-results.xml
-            prefix: tests
+      - store_artifacts:
+          path: test-results.xml
+          prefix: tests
 #  deploy:
   workflows:
     version: 2
