@@ -120,8 +120,10 @@ if ( isset( $GLOBALS['wp_tests_options'] ) ) {
 // Load WordPress
 require_once ABSPATH . '/wp-settings.php';
 
-// Delete any default posts & related data
-_delete_all_posts();
+if(defined( 'DB' ) && DB):
+	// Delete any default posts & related data
+	_delete_all_posts();
+endif;
 
 require dirname( __FILE__ ) . '/testcase.php';
 require dirname( __FILE__ ) . '/testcase-rest-api.php';
