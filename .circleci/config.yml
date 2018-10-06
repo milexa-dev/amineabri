@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: /var/www/html
     docker:
-    - image: circleci/php:7.1.22-apache-stretch-node-browsers
+    - image: circleci/php:7.2-apache-stretch-node-browsers
       environment:
         MYSQL_ROOT_PASSWORD: secret
         MYSQL_HOST: 127.0.0.1
@@ -13,6 +13,8 @@ jobs:
         command: |
           sudo apt-get update && sudo apt-get -y install git
           chown -R $USER:$USER /var/www/html
+          chmod -R 777 /var/www/html
+
     - checkout
     - run:
         name: Install things we need
