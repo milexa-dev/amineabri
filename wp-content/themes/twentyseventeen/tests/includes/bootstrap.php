@@ -82,6 +82,7 @@ if ( file_exists( DIR_TESTDATA . '/themedir1' ) ) {
 }
 	system( WP_PHP_BINARY . ' ' . escapeshellarg( dirname( __FILE__ ) . '/install.php' ) . ' ' . escapeshellarg( $config_file_path ) . ' ' . $multisite, $retval );
 	if ( 0 !== $retval ) {
+		echo "Installation of test tables is failed";
 		exit( $retval );
 	}
 

@@ -31,7 +31,6 @@ jobs:
             sudo docker-php-ext-install intl
             sudo docker-php-ext-install pdo_mysql
             sudo docker-php-ext-install mysqli
-            sudo docker-php-ext-enable mysqli
       - run:
           name: Fix MySQL socket config
           command: |
