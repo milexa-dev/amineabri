@@ -82,12 +82,12 @@ jobs:
       - run:
           name: Run Backend Tests
           command: |
-            cd wp-content/themes/amineabri/tests
+            cd wp-content/themes/twentyseventeen/tests
             phpunit --filter --debug testCreateOrder
 #        - run:
 #            name: Run Frontend Tests
 #            command: |
-#              cd wp-content/themes/amineabri/tests
+#              cd wp-content/themes/twentyseventeen/tests
 #              java -jar /usr/local/bin/selenium
 #              phpunit --filter testHasLoginForm
 #          - store_artifacts:
