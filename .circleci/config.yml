@@ -79,11 +79,11 @@ jobs:
             sudo chmod +x selenium-server-standalone-3.14.0.jar
             sudo mv selenium-server-standalone-3.14.0.jar /usr/local/bin/selenium
           background: true
-#      - run:
-#          name: Run Backend Tests
-#          command: |
-#            cd wp-content/themes/twentyseventeen/tests
-#            phpunit --filter --debug testCreateOrder
+      - run:
+          name: Run Backend Tests
+          command: |
+            cd wp-content/themes/twentyseventeen/tests
+            phpunit --filter --debug testCreateOrder
 #        - run:
 #            name: Run Frontend Tests
 #            command: |
@@ -93,13 +93,6 @@ jobs:
 #          - store_artifacts:
 #              path: test-results.xml
 #              prefix: tests
-      - run:
-          name: Install Java
-          command: |
-            sudo apt-get update && sudo apt-get -y upgrade
-            sudo apt-get -y install software-properties-common
-            sudo add-apt-repository -y ppa:webupd8team/java
-            sudo apt-get update
 #  deploy:
 #workflows:
 #  version: 2
