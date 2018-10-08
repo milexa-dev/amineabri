@@ -2,23 +2,27 @@
 define('DS', DIRECTORY_SEPARATOR);
 require_once dirname( dirname( __FILE__ ) ) . DS . 'includes'. DS .'functions.php';
 require_once dirname(dirname(__FILE__)) . DS . 'vendor' . DS . 'autoload.php';
-echo "Start : =================== \n";
-function _manually_load_environment() {
+try{
+	echo "Start : =================== \n";
+	function _manually_load_environment() {
 
-	// Add your theme …
-	switch_theme('twentyseventeen');
-	// Update array with plugins to include ...
-	$plugins_to_active = [
-		//"advanced-custom-fields-pro/acf.php",
-		//"contact-form-7/wp-contact-form-7.php",
-		//"elasticsearch-mw/elasticsearch-mw.php",
-		//"woocommerce-xero/woocommerce-xero.php",
-		//"woocommerce/woocommerce.php"
-	];
-	update_option( 'active_plugins', $plugins_to_active );
+		// Add your theme …
+		switch_theme('twentyseventeen');
+		// Update array with plugins to include ...
+		$plugins_to_active = [
+			//"advanced-custom-fields-pro/acf.php",
+			//"contact-form-7/wp-contact-form-7.php",
+			//"elasticsearch-mw/elasticsearch-mw.php",
+			//"woocommerce-xero/woocommerce-xero.php",
+			//"woocommerce/woocommerce.php"
+		];
+		update_option( 'active_plugins', $plugins_to_active );
+	}
+	tests_add_filter( 'muplugins_loaded', '_manually_load_environment' );
+
+	require dirname( dirname( __FILE__ ) ) . '/includes/bootstrap.php';
+
+	echo "end : =================== \n";
+}catch(Exception $e){
+	echo $e->getMessage();
 }
-tests_add_filter( 'muplugins_loaded', '_manually_load_environment' );
-
-require dirname( dirname( __FILE__ ) ) . '/includes/bootstrap.php';
-
-echo "end : =================== \n";
