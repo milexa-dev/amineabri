@@ -2,10 +2,9 @@
 define('DS', DIRECTORY_SEPARATOR);
 require_once dirname( dirname( __FILE__ ) ) . DS . 'includes'. DS .'functions.php';
 require_once dirname(dirname(__FILE__)) . DS . 'vendor' . DS . 'autoload.php';
-try{
-	echo "Start : =================== \n";
-	function _manually_load_environment() {
 
+if(function_exists("tests_add_filter")){
+	function _manually_load_environment() {
 		// Add your theme …
 		switch_theme('twentyseventeen');
 		// Update array with plugins to include ...
@@ -18,11 +17,12 @@ try{
 		];
 		update_option( 'active_plugins', $plugins_to_active );
 	}
+	echo "tests_add_filter exist ";
 	tests_add_filter( 'muplugins_loaded', '_manually_load_environment' );
 
 	require dirname( dirname( __FILE__ ) ) . '/includes/bootstrap.php';
-
-	echo "end : =================== \n";
-}catch(Exception $e){
-	echo $e->getMessage();
+}else{
+	echo "tests_add_filter doesn't exist ";
 }
+
+
