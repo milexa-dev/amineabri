@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: /var/www/html
     docker:
-    - image: circleci/php:7.0-apache-stretch-node-browsers-legacy
+    - image: circleci/php:5.6-apache-stretch-node-browsers-legacy
       environment:
         MYSQL_ROOT_PASSWORD: secret
         MYSQL_HOST: 127.0.0.1
@@ -41,14 +41,12 @@ jobs:
             sudo service mysql start
             sleep 2
             ps aux | grep mysql
-#sudo chmod +x /var/www/html/wp-content/db/db.sql
       - run:
           name: Create non-admin user and  database
           command: |
             sudo mysql -e "CREATE DATABASE wordpresstest; SHOW DATABASES;"
             sudo mysql -e "CREATE USER 'homestead'@'127.0.0.1' IDENTIFIED BY 'secret';"
             sudo mysql -e "GRANT ALL ON *.* TO 'homestead'@'127.0.0.1';"
-#sudo mysql -e "use wordpresstest; source '/var/www/html/wp-content/db/db.sql';"
       - run:
           name: Install Composer
           command: |
