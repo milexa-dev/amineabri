@@ -92,7 +92,8 @@ jobs:
           name: Run Backend Tests
           command: |
             cd wp-content/themes/twentyseventeen/tests
-            vendor/bin/phpunit
+            ls
+            phpunit --filter testCreateOrder
 #        - run:
 #            name: Run Frontend Tests
 #            command: |
