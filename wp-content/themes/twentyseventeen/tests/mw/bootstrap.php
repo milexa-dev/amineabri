@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', true);
+error_reporting(-1);
 
 define('DS', DIRECTORY_SEPARATOR);
 define('DB', true);
