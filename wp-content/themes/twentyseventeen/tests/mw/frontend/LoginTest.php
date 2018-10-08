@@ -21,7 +21,7 @@ class LoginTest extends PHPUnit_Extensions_Selenium2TestCase {
 
 	public function testHasLoginForm(){
 		$this->url("wp-login.php");
-		$username = $this->byName("log");
+		$username = $this->byName("logs");
 		$password = $this->byName("pwd");
 		$this->assertEquals("", $username->value());
 		$this->assertEquals("", $password->value());
