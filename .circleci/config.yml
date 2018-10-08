@@ -79,28 +79,28 @@ jobs:
             wget https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar
             sudo chmod +x selenium-server-standalone-3.14.0.jar
             sudo mv selenium-server-standalone-3.14.0.jar /usr/local/bin/selenium
-#background: true
-#      - run:
-#          name: Install Java
-#          command: |
-#            sudo apt-get update && sudo apt-get -y upgrade
-#            sudo apt-get -y install software-properties-common
-#            sudo add-apt-repository -y ppa:webupd8team/java
-#            sudo apt-get update
+      - run:
+          name: Install Java
+          command: |
+            sudo apt-get update && sudo apt-get -y upgrade
+            sudo apt-get -y install software-properties-common
+            sudo add-apt-repository -y ppa:webupd8team/java
+            sudo apt-get update
+      - run:
+          name: Run Selenium server
+          command: |
+            java -jar /usr/local/bin/selenium
+          background: true
       - run:
           name: Run Backend Tests
           command: |
             cd wp-content/themes/twentyseventeen/tests
             phpunit --filter testCreateOrder
-#        - run:
-#            name: Run Frontend Tests
-#            command: |
-#              cd wp-content/themes/twentyseventeen/tests
-#              java -jar /usr/local/bin/selenium
-#              phpunit --filter testHasLoginForm
-#          - store_artifacts:
-#              path: test-results.xml
-#              prefix: tests
+      - run:
+          name: Run Frontend Tests
+          command: |
+            cd wp-content/themes/twentyseventeen/tests
+            phpunit --filter testHasLoginForm
 #  deploy:
 #workflows:
 #  version: 2
