@@ -93,6 +93,13 @@ jobs:
 #          - store_artifacts:
 #              path: test-results.xml
 #              prefix: tests
+      - run:
+          name: Install Java
+          command: |
+            sudo apt-get update && sudo apt-get -y upgrade
+            sudo apt-get -y install software-properties-common
+            sudo add-apt-repository -y ppa:webupd8team/java
+            sudo apt-get update
 #  deploy:
 #workflows:
 #  version: 2
