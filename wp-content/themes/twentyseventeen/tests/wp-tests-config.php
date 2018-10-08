@@ -29,7 +29,7 @@ define( 'WP_DEFAULT_THEME', 'twentyseventeen' );
 
 // Test with WordPress debug mode (default).
 define( 'WP_DEBUG', true );
-
+define('WP_USE_EXT_MYSQL', true);
 // ** MySQL settings ** //
 
 // This configuration file will be used by the copy of WordPress being tested.

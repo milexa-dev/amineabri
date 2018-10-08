@@ -9,7 +9,6 @@
 if ( class_exists( 'PHPUnit\Runner\Version' ) ) {
 	require_once dirname( __FILE__ ) . '/phpunit6-compat.php';
 }
-echo "Boostrap PHP included ";
 if ( defined( 'WP_TESTS_CONFIG_FILE_PATH' ) ) {
 	$config_file_path = WP_TESTS_CONFIG_FILE_PATH;
 } else {
@@ -83,7 +82,7 @@ if ( file_exists( DIR_TESTDATA . '/themedir1' ) ) {
 }
 	system( WP_PHP_BINARY . ' ' . escapeshellarg( dirname( __FILE__ ) . '/install.php' ) . ' ' . escapeshellarg( $config_file_path ) . ' ' . $multisite, $retval );
 	if ( 0 !== $retval ) {
-		//exit( $retval );
+		exit( $retval );
 	}
 
 if ( $multisite ) {
