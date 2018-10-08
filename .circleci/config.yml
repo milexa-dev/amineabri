@@ -79,11 +79,11 @@ jobs:
             sudo mysql -e "CREATE DATABASE wordpresstest; SHOW DATABASES;"
             sudo mysql -e "CREATE USER 'homestead'@'127.0.0.1' IDENTIFIED BY 'secret';"
             sudo mysql -e "GRANT ALL ON *.* TO 'homestead'@'127.0.0.1';"
-      - run:
-          name: Run Backend Tests
-          command: |
-            cd wp-content/themes/twentyseventeen/tests
-            phpunit --filter --debug testCreateOrder
+#      - run:
+#          name: Run Backend Tests
+#          command: |
+#            cd wp-content/themes/twentyseventeen/tests
+#            phpunit --filter --debug testCreateOrder
 #        - run:
 #            name: Run Frontend Tests
 #            command: |
