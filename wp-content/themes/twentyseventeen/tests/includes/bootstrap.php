@@ -9,7 +9,7 @@
 if ( class_exists( 'PHPUnit\Runner\Version' ) ) {
 	require_once dirname( __FILE__ ) . '/phpunit6-compat.php';
 }
-
+echo "Boostrap PHP included ";
 if ( defined( 'WP_TESTS_CONFIG_FILE_PATH' ) ) {
 	$config_file_path = WP_TESTS_CONFIG_FILE_PATH;
 } else {
