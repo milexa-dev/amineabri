@@ -25,7 +25,7 @@
     <testsuites>
         <testsuite name="App">
             <directory suffix="Test.php">./mw/backend/</directory>
-            <!--<directory suffix="Test.php">./mw/frontend/</directory>-->
+            <directory suffix="Test.php">./mw/frontend/</directory>
         </testsuite>
     </testsuites>
 </phpunit>

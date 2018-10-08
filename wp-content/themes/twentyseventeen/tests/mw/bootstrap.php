@@ -1,8 +1,8 @@
 <?php
-echo "Start : =================== \n";
 define('DS', DIRECTORY_SEPARATOR);
 require_once dirname( dirname( __FILE__ ) ) . DS . 'includes'. DS .'functions.php';
 require_once dirname(dirname(__FILE__)) . DS . 'vendor' . DS . 'autoload.php';
+echo "Start : =================== \n";
 function _manually_load_environment() {
 
 	// Add your theme …
