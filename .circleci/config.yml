@@ -41,6 +41,12 @@ jobs:
             sleep 2
             ps aux | grep mysql
       - run:
+          name: Create non-admin user and  database
+          command: |
+            sudo mysql -e "CREATE DATABASE wordpresstest; SHOW DATABASES;"
+            sudo mysql -e "CREATE USER 'homestead'@'127.0.0.1' IDENTIFIED BY 'secret';"
+            sudo mysql -e "GRANT ALL ON *.* TO 'homestead'@'127.0.0.1';"
+      - run:
           name: Install Composer
           command: |
             cd wp-content/themes/twentyseventeen/tests
@@ -73,12 +79,6 @@ jobs:
             sudo chmod +x selenium-server-standalone-3.14.0.jar
             sudo mv selenium-server-standalone-3.14.0.jar /usr/local/bin/selenium
           background: true
-      - run:
-          name: Create non-admin user and  database
-          command: |
-            sudo mysql -e "CREATE DATABASE wordpresstest; SHOW DATABASES;"
-            sudo mysql -e "CREATE USER 'homestead'@'127.0.0.1' IDENTIFIED BY 'secret';"
-            sudo mysql -e "GRANT ALL ON *.* TO 'homestead'@'127.0.0.1';"
 #      - run:
 #          name: Run Backend Tests
 #          command: |
@@ -100,11 +100,6 @@ jobs:
             sudo apt-get -y install software-properties-common
             sudo add-apt-repository -y ppa:webupd8team/java
             sudo apt-get update
-            echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
-            echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
-            sudo apt-get -y --allow-unauthenticated install oracle-java8-installer
-            sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-8-oracle/jre/bin/java 1100
-            java -version
 #  deploy:
 #workflows:
 #  version: 2
