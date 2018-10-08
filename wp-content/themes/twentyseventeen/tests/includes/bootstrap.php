@@ -81,12 +81,10 @@ $wp_theme_directories = array();
 if ( file_exists( DIR_TESTDATA . '/themedir1' ) ) {
 	$wp_theme_directories[] = DIR_TESTDATA . '/themedir1';
 }
-if(defined( 'DB' ) && DB):
 	system( WP_PHP_BINARY . ' ' . escapeshellarg( dirname( __FILE__ ) . '/install.php' ) . ' ' . escapeshellarg( $config_file_path ) . ' ' . $multisite, $retval );
 	if ( 0 !== $retval ) {
 		exit( $retval );
 	}
-endif;
 
 if ( $multisite ) {
 	//echo 'Running as multisite...' . PHP_EOL;
@@ -120,10 +118,8 @@ if ( isset( $GLOBALS['wp_tests_options'] ) ) {
 // Load WordPress
 require_once ABSPATH . '/wp-settings.php';
 
-if(defined( 'DB' ) && DB):
 	// Delete any default posts & related data
 	_delete_all_posts();
-endif;
 
 require dirname( __FILE__ ) . '/testcase.php';
 require dirname( __FILE__ ) . '/testcase-rest-api.php';

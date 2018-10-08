@@ -1,9 +1,5 @@
 <?php
-ini_set('display_errors', true);
-error_reporting(-1);
-
 define('DS', DIRECTORY_SEPARATOR);
-define('DB', true);
 require_once dirname( dirname( __FILE__ ) ) . DS . 'includes'. DS .'functions.php';
 require_once dirname(dirname(__FILE__)) . DS . 'vendor' . DS . 'autoload.php';
 function _manually_load_environment() {
@@ -23,5 +19,3 @@ function _manually_load_environment() {
 tests_add_filter( 'muplugins_loaded', '_manually_load_environment' );
 
 require dirname( dirname( __FILE__ ) ) . '/includes/bootstrap.php';
-
-echo "hello";
