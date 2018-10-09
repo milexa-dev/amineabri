@@ -62,7 +62,7 @@ class LoginTest extends PHPUnit_Extensions_Selenium2TestCase {
 		$total = $total->byClassName("val");
 		$total = $total->byClassName("data");
 
-		//Check the Result
+		//Check the total amount
 		$this->assertEquals("0.00", $total->text());
 
 	}
