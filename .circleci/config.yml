@@ -48,6 +48,10 @@ jobs:
             sudo mysql -e "CREATE USER 'homestead'@'127.0.0.1' IDENTIFIED BY 'secret';"
             sudo mysql -e "GRANT ALL ON *.* TO 'homestead'@'127.0.0.1';"
       - run:
+          name: Import database to mysql
+          command: |
+            sudo mysql -e "use wordpresstest; source '/var/www/html/wp-content/themes/twentyseventeen/tests/db/data.sql';"
+      - run:
           name: Install Composer
           command: |
             cd wp-content/themes/twentyseventeen/tests
@@ -91,16 +95,16 @@ jobs:
           command: |
             java -jar /usr/local/bin/selenium
           background: true
-#      - run:
-#          name: Run Backend Tests
-#          command: |
-#            cd wp-content/themes/twentyseventeen/tests
-#            phpunit --filter testCreateOrder
       - run:
-          name: Run Frontend Tests
+          name: Run Backend Tests
           command: |
             cd wp-content/themes/twentyseventeen/tests
-            phpunit --filter testHasLoginForm
+            phpunit --filter testCreateOrder
+#      - run:
+#          name: Run Frontend Tests
+#          command: |
+#            cd wp-content/themes/twentyseventeen/tests
+#            phpunit --filter testHasLoginForm
 #  deploy:
 workflows:
   version: 2

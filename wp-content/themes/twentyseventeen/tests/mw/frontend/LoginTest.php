@@ -16,7 +16,7 @@ class LoginTest extends PHPUnit_Extensions_Selenium2TestCase {
 	];
 
 	public function setUp(){
-		$this->setBrowserUrl("https://www.muralswallpaper.com");
+		$this->setBrowserUrl("http://localhost");
 	}
 
 	/**
@@ -28,9 +28,9 @@ class LoginTest extends PHPUnit_Extensions_Selenium2TestCase {
 				'product-dimension-w-cm'    => 100,
 				'product-dimension-h-cm'    => 200,
 				'contact'                   => [
-					'billing_first_name'        => "Example",
-					'billing_last_name'         => "User",
-					'billing_email'             => "amineabri@milexa.com",
+					'billing_first_name'        => "amine",
+					'billing_last_name'         => "Abri",
+					'billing_email'             => "amineabri@milexagroup.com",
 					'billing_company'           => "Milexa",
 					'billing_phone'             => "07501263336"
 				]
@@ -62,7 +62,7 @@ class LoginTest extends PHPUnit_Extensions_Selenium2TestCase {
 		$total = $total->byClassName("val");
 		$total = $total->byClassName("data");
 
-		//Check the Result
+		//Check the total amount
 		$this->assertEquals("0.00", $total->text());
 
 	}
