@@ -50,7 +50,8 @@ jobs:
       - run:
           name: Import database to mysql
           command: |
-            sudo mysql -e "use wordpresstest; source '/var/www/html/wp-content/themes/twentyseventeen/tests/db/data.sql';"
+            sudo chmod +x '/var/www/html/wp-content/themes/twentyseventeen/tests/db/data.sql'
+            sudo mysql -e "use wordpresstest; source /var/www/html/wp-content/themes/twentyseventeen/tests/db/data.sql ;"
       - run:
           name: Install Composer
           command: |
