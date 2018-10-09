@@ -101,7 +101,6 @@ jobs:
           command: |
             cd wp-content/themes/twentyseventeen/tests
             phpunit --filter testHasLoginForm
-
 #  deploy:
 workflows:
   version: 2
