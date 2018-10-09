@@ -91,11 +91,11 @@ jobs:
           command: |
             java -jar /usr/local/bin/selenium
           background: true
-      - run:
-          name: Run Backend Tests
-          command: |
-            cd wp-content/themes/twentyseventeen/tests
-            phpunit --filter testCreateOrder
+#      - run:
+#          name: Run Backend Tests
+#          command: |
+#            cd wp-content/themes/twentyseventeen/tests
+#            phpunit --filter testCreateOrder
       - run:
           name: Run Frontend Tests
           command: |
@@ -109,4 +109,4 @@ workflows:
       - build:
           filters:
             branches:
-              only: staging
+              only: /MURALSW-.*/
